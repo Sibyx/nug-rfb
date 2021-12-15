@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "nug-rfb"
+version = "0.1.0"
+description = "Simple implementation of the VNC server"
+authors = ["Jakub Dubec <jakub.dubec@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^0.19.2"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
