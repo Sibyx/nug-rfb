@@ -1,7 +1,9 @@
 import logging
 from asyncio import Protocol, Transport
 from enum import Enum
-from typing import NoReturn
+from typing import NoReturn, Optional
+
+from rfb.settings import Settings
 
 
 class ServerState(Enum):
@@ -24,19 +26,23 @@ class Client:
 
     @state.setter
     def state(self, value: ServerState) -> NoReturn:
-        logging.debug("Changing state of {} from {} to {}", self._peer_name, self._state, value)
+        logging.debug("Changing state of %s from %s to %s", self._peer_name, self._state, value)
         self._state = value
+
+    def __str__(self) -> str:
+        return f"{self._peer_name[0]}:{self._peer_name[1]}"
 
 
 class RFBServerProtocol(Protocol):
-    def __init__(self):
-        self._clients = {}
+    def __init__(self, settings: Settings):
+        self._settings = settings
+        self._client: Optional[Client] = None
 
     def connection_made(self, transport: Transport):
         peer_name = transport.get_extra_info('peername')
-        logging.info("Connection from {}", peer_name)
-        self._clients[peer_name] = Client(transport)
+        logging.info("Connection from %s", peer_name)
+        self._client = Client(transport)
 
     def data_received(self, data):
         message = data.decode()
-        logging.debug('Data received: {!r}', message)
+        logging.debug('%s - data received: %s', self._client, message.encode().hex())

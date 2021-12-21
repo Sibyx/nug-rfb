@@ -4,6 +4,7 @@
 *.pyo
 *.log
 __pycache__
+.env
 
 # Distribution / packaging
 .Python
