@@ -14,8 +14,8 @@ We use [Poetry](https://python-poetry.org/) as a package manager.
 
 ## Credits
 
-My implementation is heavily inspired by [rdpy](https://github.com/citronneur/rdpy) projects. I have enjoyed
+My implementation is heavily inspired by [rdpy](https://github.com/citronneur/rdpy) project. I have enjoyed
 reading your implementation of the typing system.
 
 ---
-With ❤️ & ☕️, Jakub Dubec 2021
+With ❤️ and ☕️ Jakub Dubec 2021
