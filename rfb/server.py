@@ -6,27 +6,29 @@ from typing import NoReturn, Optional
 from rfb.settings import Settings
 
 
-class ServerState(Enum):
-    INIT = 'init'
+class SessionState(Enum):
+    HANDSHAKE = 'handshaking'
+    INIT = 'initialisation'
+    RUNTIME = 'runtime'
 
 
 class Client:
     def __init__(self, transport: Transport):
         self._transport = transport
         self._peer_name = transport.get_extra_info('peername')
-        self._state = ServerState.INIT
+        self._state = SessionState.HANDSHAKE
 
     @property
     def transport(self) -> Transport:
         return self._transport
 
     @property
-    def state(self) -> ServerState:
+    def state(self) -> SessionState:
         return self._state
 
     @state.setter
-    def state(self, value: ServerState) -> NoReturn:
-        logging.debug("Changing state of %s from %s to %s", self._peer_name, self._state, value)
+    def state(self, value: SessionState) -> NoReturn:
+        logging.debug("Changing state of %s from %s to %s", self, self._state, value)
         self._state = value
 
     def __str__(self) -> str:
